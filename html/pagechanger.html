@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Design 1 - Modern Gradient */
+        .design-1 {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        .design-1::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+            z-index: 1;
+        }
+
+        .design-1 h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.3s;
+        }
+
+        .design-1 p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            max-width: 700px;
+            margin-bottom: 2rem;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.6s;
+        }
+
+        .design-1 .btn {
+            padding: 12px 30px;
+            background: white;
+            color: var(--primary);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.9s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .design-1 .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .design-1 img {
+            position: absolute;
+        }
+
+        .design-1 img:nth-child(1) {
+            width: 80px;
+            top: 15%;
+            left: 10%;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .design-1 img:nth-child(2) {
+            width: 120px;
+            bottom: 20%;
+            right: 10%;
+            animation: float 5s ease-in-out infinite 0.5s;
+            opacity: 0.7;
+        }
+
+        /* Design 2 - Dark Mode */
+        .design-2 {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: var(--dark);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            transition: all 0.5s ease;
+            overflow: hidden;
+        }
+
+        .design-2 h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.3s;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .design-2 p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            max-width: 700px;
+            margin-bottom: 2rem;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.6s;
+        }
+
+        .design-2 .btn {
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 0.9s;
+        }
+
+        .design-2 .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(253, 121, 168, 0.4);
+        }
+
+        .design-2 img {
+            position: absolute;
+            width: 100px;
+        }
+
+        .design-2 img:nth-child(1) {
+            top: 20%;
+            right: 15%;
+            animation: rotate 10s linear infinite;
+        }
+
+        .design-2 img:nth-child(2) {
+            bottom: 15%;
+            left: 10%;
+            animation: pulse 2s ease infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        /* Active Design */
+        .active {
+            display: flex;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .design-1 img:nth-child(1),
+            .design-1 img:nth-child(2),
+            .design-2 img:nth-child(1),
+            .design-2 img:nth-child(2) {
+                width: 60px;
+            }
+            
+            .design-1 h1,
+            .design-2 h1 {
+                margin-bottom: 0.5rem;
+            }
+            
+            .design-1 p,
+            .design-2 p {
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">↻</button>
+
+    <!-- Design 1 - Modern Gradient -->
+    <section class="design-1 active" id="design1">
+        <img src="https://placehold.co/100x100/ffffff/6c5ce7?text=★" alt="Decorative star shape with glowing effect">
+        <img src="https://placehold.co/100x100/ffffff/6c5ce7?text=★" alt="Decorative star shape with glowing effect">
+        <h1>Creative Designer</h1>
+        <p>I craft beautiful digital experiences that engage users and drive results</p>
+        <a href="#work" class="btn">View My Work</a>
+    </section>
+
+    <!-- Design 2 - Dark Mode -->
+    <section class="design-2" id="design2">
+        <img src="https://placehold.co/100x100/fd79a8/2d3436?text=◯" alt="Geometric circle pattern with pink accent">
+        <img src="https://placehold.co/100x100/a29bfe/2d3436?text=◇" alt="Geometric diamond shape in purple">
+        <h1>Digital Artisan</h1>
+        <p>Blending technology and creativity to build meaningful digital solutions</p>
+        <a href="#work" class="btn">Explore Portfolio</a>
+    </section>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const design1 = document.getElementById('design1');
+        const design2 = document.getElementById('design2');
+        let currentDesign = 1;
+
+        themeToggle.addEventListener('click', () => {
+            if (currentDesign === 1) {
+                design1.classList.remove('active');
+                design2.classList.add('active');
+                currentDesign = 2;
+            } else {
+                design2.classList.remove('active');
+                design1.classList.add('active');
+                currentDesign = 1;
+            }
+        });
+    </script>
+</body>
+</html>

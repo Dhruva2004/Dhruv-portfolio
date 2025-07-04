@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Design Skill Cards</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #5a6bbf, #7c8fd4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: #99a6dd;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .progress-container {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin: auto;
+    }
+
+    svg {
+      transform: rotate(-90deg);
+    }
+
+    .progress-bg,
+    .progress-bar {
+      fill: none;
+      stroke-width: 10;
+      stroke-linecap: round;
+    }
+
+    .progress-bg {
+      stroke: #ccc;
+    }
+
+    .progress-bar {
+      stroke: #4a3b7a;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transition: stroke-dashoffset 1.5s ease;
+    }
+
+    .percentage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .bottom-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 18px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .bottom-stats div {
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Cards -->
+  <div class="card" data-percent="80">
+    <h2>Photoshop</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>28%<br>Last week</div>
+      <div>62%<br>Last month</div>
+    </div>
+  </div>
+
+  <div class="card" data-percent="65">
+    <h2>Illustrator</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>22%<br>Last week</div>
+      <div>50%<br>Last month</div>
+    </div>
+  </div>
+
+  <div class="card" data-percent="75">
+    <h2>Figma</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>30%<br>Last week</div>
+      <div>55%<br>Last month</div>
+    </div>
+  </div>
+
+  <div class="card" data-percent="60">
+    <h2>Premiere Pro</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>18%<br>Last week</div>
+      <div>42%<br>Last month</div>
+    </div>
+  </div>
+
+  <div class="card" data-percent="50">
+    <h2>After Effects</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>15%<br>Last week</div>
+      <div>35%<br>Last month</div>
+    </div>
+  </div>
+
+  <div class="card" data-percent="55">
+    <h2>InDesign</h2>
+    <div class="progress-container">
+      <svg width="130" height="130">
+        <circle class="progress-bg" cx="65" cy="65" r="60"/>
+        <circle class="progress-bar" cx="65" cy="65" r="60"/>
+      </svg>
+      <div class="percentage">0%</div>
+    </div>
+    <div class="bottom-stats">
+      <div>20%<br>Last week</div>
+      <div>40%<br>Last month</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cards = document.querySelectorAll(".card");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const percent = parseInt(card.getAttribute("data-percent"));
+        const bar = card.querySelector(".progress-bar");
+        const percentText = card.querySelector(".percentage");
+
+        const totalLength = 440;
+        const offset = totalLength - (percent / 100) * totalLength;
+        bar.style.strokeDashoffset = offset;
+
+        let current = 0;
+        const interval = setInterval(() => {
+          if (current >= percent) {
+            clearInterval(interval);
+          } else {
+            current++;
+            percentText.textContent = current + "%";
+          }
+        }, 15);
+
+        observer.unobserve(card);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  cards.forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html> -->

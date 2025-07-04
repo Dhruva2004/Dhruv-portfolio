@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Skill Progress</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    #main-body {
+      background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #main-heading {
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    #skills-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .progress-circle {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .progress-circle svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      transform: rotate(-90deg); /* Start from top */
+    }
+
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+    }
+
+    .circle-bg {
+      stroke: #eee;
+    }
+
+    .circle-progress {
+      stroke: #5e369d;
+      stroke-dasharray: 377;
+      stroke-dashoffset: 377;
+    }
+
+    .progress-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    .stat {
+      font-size: 0.9em;
+      font-weight: 600;
+      color: #1b1b1b;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      #skills-section {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body >
+    <div id="main-body">
+  <h1 id="main-heading">My Skills</h1>
+  <div id="skills-section">
+    <div class="skill-card" data-skill="Photoshop" data-percent="70" data-week="28" data-month="62"></div>
+    <div class="skill-card" data-skill="Illustrator" data-percent="72" data-week="22" data-month="50"></div>
+    <div class="skill-card" data-skill="Premiere Pro" data-percent="60" data-week="25" data-month="50"></div>
+    <div class="skill-card" data-skill="HTML" data-percent="80" data-week="18" data-month="42"></div>
+    <div class="skill-card" data-skill="CSS" data-percent="75" data-week="15" data-month="35"></div>
+    <div class="skill-card" data-skill="JavaScript" data-percent="60" data-week="20" data-month="40"></div>
+  </div>
+</div>
+  <script>
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    skillCards.forEach(card => {
+      const percent = parseInt(card.dataset.percent);
+      const skill = card.dataset.skill;
+      const week = card.dataset.week;
+      const month = card.dataset.month;
+
+      card.innerHTML = `
+        <h3>${skill}</h3>
+        <div class="progress-circle">
+          <svg viewBox="0 0 140 140">
+            <circle class="circle-bg" cx="70" cy="70" r="60"></circle>
+            <circle class="circle-progress" cx="70" cy="70" r="60"></circle>
+          </svg>
+          <div class="progress-value">0%</div>
+        </div>
+        <div class="stat">${week}%<br><small>Last week</small></div>
+        <div class="stat">${month}%<br><small>Last month</small></div>
+      `;
+
+      const progressCircle = card.querySelector('.circle-progress');
+      const percentText = card.querySelector('.progress-value');
+      const radius = 60;
+      const circumference = 2 * Math.PI * radius;
+      progressCircle.style.strokeDasharray = circumference;
+      progressCircle.style.strokeDashoffset = circumference;
+
+      let current = 0;
+      const speed = 20;
+
+      const animate = setInterval(() => {
+        if (current <= percent) {
+          const offset = circumference - (current / 100) * circumference;
+          progressCircle.style.strokeDashoffset = offset;
+          percentText.textContent = `${current}%`;
+          current++;
+        } else {
+          clearInterval(animate);
+        }
+      }, speed);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        /* services section */
+        #services_sec {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: "roboto", sans-serif;
+            background: linear-gradient(to bottom, #9b8bff, #757ede);
+        }
+
+        #services_sec .servi_head {
+            font-size: 3em;
+            margin-bottom: 15px;
+            padding: 5px 15px;
+        }
+
+        .content_box {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding-top: 35px;
+        }
+
+        .card {
+            min-height: 220px;
+            width: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: #fff;
+            margin: 10px 5px;
+            transition: 0.3s;
+        }
+
+        .card .bx-md {
+            margin-bottom: 20px;
+            color: #ff5724;
+        }
+
+        .card .h2 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .card .para {
+            color: #6c757d;
+            text-align: center;
+        }
+
+        .card:hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/web\ dev.jpg);
+            background-size: 100% 100%;
+            opacity: 0.8;
+            color: #fff;
+        }
+
+        .card:hover .para {
+            color: #fff;
+        }
+
+        .card:hover .bx_md {
+            color: #fff;
+        }
+
+        .card:nth-child(2):hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/graphics.jpg );
+            background-size: 100% 100%;
+
+        }
+
+        .card:nth-child(3):hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/download.jpg );
+
+        }
+
+        .card:nth-child(4):hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/videoedit.jpg );
+            background-size: 100% 100%;
+        }
+
+        .card:nth-child(5):hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/digi.jpg );
+            background-size: 100% 100%;
+        }
+
+        .card:nth-child(6):hover {
+            background: linear-gradient(90deg,
+                    rgba(2, 2, 36, 0.7) 0%,
+                    rgba(9, 9, 221, 0.7) 35%,
+                    rgba(0, 212, 255, 0.7) 100%),
+                url(../img/custo.jpg );
+            background-size: 100% 100%;
+
+        }
+
+        /*  services section end*/
+
+        /* Services Section */
+        #services_sec {
+            min-height: 100vh;
+            padding: 80px 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to bottom, #9b8bff, #757ede);
+        }
+
+        .services-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .service-card {
+            background: var(--service-card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .service-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .services-container {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+        }
+</style>
+
+        <!-- services section -->
+        <section id="services_sec">
+            <div class="servi_head">Services</div>
+            <div class="content_box">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bxl-sketch'></i>
+                    </div>
+                    <div class="h2">Web Design</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bx-line-chart'></i>
+                    </div>
+                    <div class="h2">Graphics</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bx-laptop'></i>
+                    </div>
+                    <div class="h2">Web Development</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bx-video'></i>
+                    </div>
+                    <div class="h2">Video Editing</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+                <!-- Card 5 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bx-photo-album'></i>
+                    </div>
+                    <div class="h2">Digital Marketing</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+                <!-- Card 6 -->
+                <div class="card">
+                    <div class="bx-md">
+                        <i class='bx bx-user'></i>
+                    </div>
+                    <div class="h2">Customer Support</div>
+                    <div class="para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio omnis, similique
+                        consectetur molestias nulla numquam!</div>
+                </div>
+            </div>
+        </section>
+        <!-- services section end-->
+=======
+        <!-- Services Section -->
+        <section id="services_sec">
+            <h2 class="section-title">My Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="service-title">UI/UX Design</h3>
+                    <p class="service-description">
+                        Creating beautiful and intuitive interfaces that enhance user experience and engagement.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Web Development</h3>
+                    <p class="service-description">
+                        Building responsive, fast and secure websites with modern technologies.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">Mobile Apps</h3>
+                    <p class="service-description">
+                        Developing cross-platform mobile applications with Flutter.
+                    </p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="service-title">SEO Optimization</h3>
+                    <p class="service-description">
+                        Improving your website's visibility and ranking on search engines.
+                    </p>
+                </div>
+            </div>
+        </section>
+>>>>>>> REPLACE
+
+
+</body>
+</html>

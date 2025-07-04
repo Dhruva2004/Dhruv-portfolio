@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Header with Sidebar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #head {
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(#2b1055, #757ede);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        #head .logo {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-desktop {
+            display: flex;
+        }
+
+        .nav-desktop .li {
+            list-style: none;
+            margin-left: 2rem;
+        }
+
+        .nav-desktop .nav {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            color: #fff;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-desktop .nav:hover,
+        .nav-desktop .nav.active {
+            background-color: #fff;
+            color: #2b1055;
+        }
+
+        /* Mobile menu button */
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #2b1055;
+            overflow-x: hidden;
+            transition: 0.5s;
+            z-index: 999;
+            padding-top: 80px;
+        }
+
+        .sidebar.open {
+            width: 70%;
+        }
+
+        .sidebar .li {
+            list-style: none;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .sidebar .nav {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar .nav:hover,
+        .sidebar .nav.active {
+            color: #757ede;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+            .menu-btn {
+                display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="head">
+        <a href="#" class="logo">LOGO</a>
+        
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop" id="first">
+            <li class="li"><a href="#" class="nav" data-page="home">Home</a></li>
+            <li class="li"><a href="#" class="nav" data-page="about">About</a></li>
+            <li class="li"><a href="#" class="nav" data-page="services">Services</a></li>
+            <li class="li"><a href="#" class="nav" data-page="portfolio">Portfolio</a></li>
+            <li class="li"><a href="#" class="nav" data-page="contact">Contact</a></li>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="menu-btn" id="menuBtn">☰</div>
+
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <span class="close-btn" id="closeBtn">×</span>
+            <li class="li"><a href="#" class="nav" data-page="home">Home</a></li>
+            <li class="li"><a href="#" class="nav" data-page="about">About</a></li>
+            <li class="li"><a href="#" class="nav" data-page="services">Services</a></li>
+            <li class="li"><a href="#" class="nav" data-page="portfolio">Portfolio</a></li>
+            <li class="li"><a href="#" class="nav" data-page="contact">Contact</a></li>
+        </div>
+    </header>
+
+    <script>
+        // Toggle sidebar
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sidebar = document.getElementById('sidebar');
+        const navLinks = document.querySelectorAll('.nav');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== menuBtn) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Add active class to clicked nav link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Remove active class from all links
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                // Add active class to the clicked link
+                link.classList.add('active');
+                // Close sidebar if in mobile view
+                sidebar.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
